@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <title>Upload Files Request Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $(".addFileInput").click(function () {
+                $("#uploadFiles > .fileInput:last")
+                        .after("<p class='fileInput'>File to upload: <input type='file' name='file'></p>");
+            });
+        })
+    </script>
+</head>
+<body>
+
+<div>
+    <p>Here you can upload text files for parsing</p>
+    <form id="uploadFiles" method="POST" action="upload-files" enctype="multipart/form-data">
+        <p>Your Name: <input type="text" name="userName"></p>
+        <p class="fileInput">File to upload: <input type="file" name="file" accept="text/*"></p>
+        <p><input type="button" class="addFileInput" value="Add one file more"><input type="submit" value="Upload"></p>
+    </form>
+</div>
+
+</body>
+</html>
