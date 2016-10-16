@@ -19,8 +19,7 @@ import java.util.Properties;
         "com.bintime.services"})
 @EnableJpaRepositories(basePackages = {"com.bintime.repositories"})
 @PropertySource("classpath:application.properties")
-@EnableTransactionManagement
-
+@EnableTransactionManagement(mode = AdviceMode.PROXY)
 public class RootConfig {
     @Autowired
     private Environment env;
@@ -64,6 +63,7 @@ public class RootConfig {
         properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.connection.autocommit", env.getRequiredProperty("hibernate.connection.autocommit"));
         return properties;
     }
 

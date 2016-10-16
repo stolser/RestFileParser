@@ -10,21 +10,21 @@ import java.util.List;
 @Embeddable
 public class UploadedFile {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String originalName;
     private String contentType;
     private long size;
     @ElementCollection
-    private List<String> lines;
+    private List<String> textLines;
 
     public UploadedFile() {}
 
-    public UploadedFile(String originalName, String contentType, long size, List<String> lines) {
+    public UploadedFile(String originalName, String contentType, long size, List<String> textLines) {
         this.originalName = originalName;
         this.contentType = contentType;
         this.size = size;
-        this.lines = lines;
+        this.textLines = textLines;
     }
 
     public String getOriginalName() {
@@ -51,12 +51,12 @@ public class UploadedFile {
         this.size = size;
     }
 
-    public List<String> getLines() {
-        return lines;
+    public List<String> getTextLines() {
+        return textLines;
     }
 
-    public void setLines(List<String> lines) {
-        this.lines = lines;
+    public void setTextLines(List<String> textLines) {
+        this.textLines = textLines;
     }
 
     @Override
@@ -77,7 +77,12 @@ public class UploadedFile {
 
     @Override
     public String toString() {
-        return String.format("UploadedFile{id = %d, originalName = '%s', contentType = '%s', size = %d, lines = %s}",
-                id, originalName, contentType, size, lines);
+        StringBuilder strBuilder = new StringBuilder()
+                .append(String.format("UploadedFile {id = %d, originalName = '%s', " +
+                "contentType = '%s', size = %d, textLines:", id, originalName, contentType, size));
+        textLines.forEach(line -> strBuilder.append("\n\t").append(line));
+        strBuilder.append("}\n");
+
+        return strBuilder.toString();
     }
 }

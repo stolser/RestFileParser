@@ -14,7 +14,7 @@ public class LineCounter {
         lineFrequency = new HashMap<>();
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_NUMBER);
         for (UploadedFile file: uploadedFiles) {
-            List<String> lines = file.getLines();
+            List<String> lines = file.getTextLines();
             executor.submit((Runnable) () -> lines.forEach(this::putLineIntoResultMap));
         }
 

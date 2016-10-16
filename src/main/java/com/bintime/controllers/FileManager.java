@@ -38,6 +38,7 @@ public class FileManager {
                               Model model) {
 
         List<UploadedFile> uploadedFiles = countLineFrequencyAndGetFiles(files);
+        requestService.printAllInDB();
 
         model.addAttribute("userName", userName);
         model.addAttribute("uploadedFiles", uploadedFiles);
@@ -46,16 +47,19 @@ public class FileManager {
     }
 
     @RequestMapping(value = "get-results", method = RequestMethod.GET,
-                    produces = "application/json")
+                    produces = "application/json;charset=utf8")
     @ResponseBody
     public String returnResults() {
         ObjectMapper mapper = new ObjectMapper();
         String json = "";
         List<ResultItem> results = new ArrayList<>();
+
         lineFrequency.entrySet().forEach(
                 entry -> results.add(new ResultItem(entry.getKey(), entry.getValue())));
+
         try {
             json = mapper.writeValueAsString(results);
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -85,7 +89,8 @@ public class FileManager {
         }
 
 
-        requestService.save(new Request(uploadedFiles));
+        Request savedRequest = requestService.save(new Request(uploadedFiles));
+        LOGGER.debug("Saved request from the DB: {}", savedRequest);
 
         lineFrequency = new LineCounter().count(uploadedFiles);
 

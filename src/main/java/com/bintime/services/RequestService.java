@@ -32,4 +32,14 @@ public class RequestService {
     public List<Request> findAll() {
         return requestRepo.findAll();
     }
+
+    @Transactional
+    public void printAllInDB() {
+        List<Request> requests = requestRepo.findAll();
+        System.out.printf("Requests in DB (%d): \n", requests.size());
+        requests.forEach(request -> {
+            System.out.printf("\t%s\n---------------------------------\n", request);
+        });
+
+    }
 }

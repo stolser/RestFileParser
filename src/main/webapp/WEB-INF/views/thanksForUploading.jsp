@@ -10,7 +10,7 @@
     <div class="fileContent">
         <p>File name: ${file.originalName}</p>
         <ul>
-            <c:forEach items="${file.lines}" var="line">
+            <c:forEach items="${file.textLines}" var="line">
                 <li>${line}</li>
             </c:forEach>
         </ul>

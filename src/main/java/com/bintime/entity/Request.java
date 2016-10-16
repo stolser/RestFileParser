@@ -8,9 +8,9 @@ import java.util.List;
 @Entity
 public class Request {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
     @ElementCollection
     @Embedded
@@ -66,6 +66,6 @@ public class Request {
     @Override
     public String toString() {
         return String.format("Request{id = %d, timestamp = %s, uploadedFiles = %s}",
-                id, new SimpleDateFormat("dd.MM.YY HH:mm:ss").format(timestamp), uploadedFiles);
+                id, new SimpleDateFormat("dd.MMM.YY HH:mm:ss").format(timestamp), uploadedFiles);
     }
 }
